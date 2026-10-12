@@ -1,0 +1,28 @@
+{
+  "server": "project-git-files",
+  "protocolVersion": "2024-11-05",
+  "transport": "stdio, одна строка JSON на сообщение",
+  "tools": [
+    {
+      "name": "git_branch",
+      "description": "Текущая git-ветка проекта. При отсоединённом HEAD возвращает короткий хеш коммита.",
+      "parameters": {}
+    },
+    {
+      "name": "list_files",
+      "description": "Список файлов проекта без служебных папок (.git, node_modules, output). Порядок — по алфавиту.",
+      "parameters": {
+        "subdir": {"type": "string", "required": false, "description": "Подпапка внутри проекта, например docs"}
+      },
+      "errors": ["путь выходит за пределы проекта", "папки нет в проекте"]
+    },
+    {
+      "name": "git_diff",
+      "description": "Изменения относительно последнего коммита. Новые файлы, которых нет в git, не показываются.",
+      "parameters": {
+        "stat_only": {"type": "boolean", "required": false, "default": true, "description": "true — статистика, false — полный diff"}
+      },
+      "limits": {"max_chars": 8000}
+    }
+  ]
+}
